@@ -15,8 +15,8 @@
     <description>roomReservation</description>
     <properties>
         <java.version>11</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.17</maven.compiler.source>
+        <maven.compiler.target>1.17</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
@@ -46,8 +46,8 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <source>1.8</source>
-                            <target>1.8</target>
+                            <source>1.17</source>
+                            <target>1.17</target>
                         </exclude>
                     </excludes>
                 </configuration>
