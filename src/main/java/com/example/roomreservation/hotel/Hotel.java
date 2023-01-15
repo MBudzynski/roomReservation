@@ -1,4 +1,4 @@
-package com.example.roomreservation.items;
+package com.example.roomreservation.hotel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +18,12 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer hotelId;
 
-    private String nazwa;
+    private String name;
+    private String street;
+    private String houseNumber;
+    private String city;
+    private String postCode;
+    private String phoneNumber;
+    private String description;
+    private Integer standard;
 }
