@@ -5,9 +5,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,19 +16,49 @@ import java.util.List;
 @Tag(name = "Hotel")
 public class HotelController {
 
-    private HotelRepository hotelRepository;
+    private HotelService hotelService;
 
-    public HotelController(HotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
+    public HotelController(HotelService hotelService) {
+        this.hotelService = hotelService;
     }
 
     @GetMapping("/get-hotels")
     @Operation(summary = "Get all hotels", responses = {
-            @ApiResponse(description = "Get hotles sucess", responseCode = "200",
+            @ApiResponse(description = "Get hotels success", responseCode = "200",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
-    List<Hotel> registerForm() {
-        return hotelRepository.findAll();
+    ResponseEntity<List<Hotel>> registerForm() {
+        return new ResponseEntity<>(hotelService.findAllHotels(), HttpStatus.OK);
+    }
+
+    @PostMapping("/create-hotel")
+    @Operation(summary = "Create hotel", responses = {
+            @ApiResponse(description = "Create hotel success", responseCode = "201",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
+    })
+    ResponseEntity createHotel(@RequestBody Hotel hotel) {
+        hotelService.createHotel(hotel);
+        return new ResponseEntity<>("", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete-hotel/{hotelId}")
+    @Operation(summary = "Delete hotel", responses = {
+            @ApiResponse(description = "Delete hotel success", responseCode = "202",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
+    })
+    ResponseEntity createHotel(@PathVariable Integer hotelId) {
+        hotelService.deleteHotel(hotelId);
+        return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+    }
+
+    @PatchMapping ("/update-hotel")
+    @Operation(summary = "update hotel", responses = {
+            @ApiResponse(description = "Update hotel success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
+    })
+    ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel) {
+        Hotel response = hotelService.createHotel(hotel);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
