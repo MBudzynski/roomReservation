@@ -1,4 +1,5 @@
-package com.example.roomreservation.hotel;
+package com.example.roomreservation.user;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,18 +13,15 @@ import javax.persistence.Id;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hotel {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hotelId;
-
-    private String name;
-    private String street;
-    private String houseNumber;
-    private String city;
-    private String postCode;
+    private Integer userId;
+    private String firstName;
+    private String lastName;
     private String phoneNumber;
-    private String description;
-    private Integer standard;
+    private String documentNumber;
+    private String accountType;
+
 }

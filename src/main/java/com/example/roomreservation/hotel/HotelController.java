@@ -52,9 +52,9 @@ public class HotelController {
     }
 
     @PatchMapping ("/update-hotel")
-    @Operation(summary = "update hotel", responses = {
+    @Operation(summary = "Update hotel", responses = {
             @ApiResponse(description = "Update hotel success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
     ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel) {
         Hotel response = hotelService.createHotel(hotel);
