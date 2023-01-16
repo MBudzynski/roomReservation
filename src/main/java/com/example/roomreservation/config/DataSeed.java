@@ -31,10 +31,10 @@ public class DataSeed implements InitializingBean {
     }
 
     private void setUserData(){
-        userRepository.save(new User(null, "Jan", "Kowalski", "999999999", "AWT 458752", "Pracownik"));
-        userRepository.save(new User(null, "Iwona", "Bednarek", "888888888", "SRD 584233", "Klient"));
-        userRepository.save(new User(null, "Tomasz", "Karwert", "777777777", "FKE 5725413", "Właściciel"));
-        userRepository.save(new User(null, "Oliwia", "Krakowiak", "6666666666", "SOP 583453", "Klient"));
+        userRepository.save(new User(null, "Jan", "Kowalski", "999999999", "AWT 458752", "Pracownik", "zaqwsx123@o2.pl", "H@slo123"));
+        userRepository.save(new User(null, "Iwona", "Bednarek", "888888888", "SRD 584233", "Klient", "zaqws123@o2.pl", "H@slo234"));
+        userRepository.save(new User(null, "Tomasz", "Karwert", "777777777", "FKE 5725413", "Właściciel", "zaqw123@o2.pl", "H@slo345"));
+        userRepository.save(new User(null, "Oliwia", "Krakowiak", "6666666666", "SOP 583453", "Klient", "zaq123@o2.pl", "H@slo456"));
     }
 
 

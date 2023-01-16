@@ -1,5 +1,6 @@
 package com.example.roomreservation.user;
 
+import com.example.roomreservation.exception.EmailException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,10 @@ public class UserService {
         return  userRepository.findAll();
     }
 
-    public User createUser(User user){
+    public User createUser(User user) throws EmailException{
+        if(userRepository.existsByEmail(user.getEmail())){
+          throw new EmailException("Address email already exist");
+        }
         return userRepository.save(user);
     }
 

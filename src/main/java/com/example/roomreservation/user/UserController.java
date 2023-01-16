@@ -1,5 +1,6 @@
 package com.example.roomreservation.user;
 
+import com.example.roomreservation.exception.EmailException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,11 +35,18 @@ public class UserController {
     @PostMapping("/create-user")
     @Operation(summary = "Create user", responses = {
             @ApiResponse(description = "Create user success", responseCode = "201",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+            @ApiResponse(description = "Email already exists", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
     })
-    ResponseEntity createUser(@RequestBody User user) {
-        userService.createUser(user);
-        return new ResponseEntity<>("", HttpStatus.CREATED);
+    ResponseEntity createUser(@RequestBody User user, Exception anException) {
+        try {
+            userService.createUser(user);
+            return new ResponseEntity<>("", HttpStatus.CREATED);
+        } catch (EmailException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @DeleteMapping("/delete-user/{userId}")
@@ -54,11 +62,18 @@ public class UserController {
     @PatchMapping ("/update-user")
     @Operation(summary = "Update user", responses = {
             @ApiResponse(description = "Update user success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+            @ApiResponse(description = "Email already exists", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
     })
     ResponseEntity<User> updateHotel(@RequestBody User user) {
-        User response = userService.createUser(user);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        User response = null;
+        try {
+            response = userService.createUser(user);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (EmailException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
