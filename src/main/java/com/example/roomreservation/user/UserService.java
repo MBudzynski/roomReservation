@@ -1,6 +1,7 @@
 package com.example.roomreservation.user;
 
 import com.example.roomreservation.exception.EmailException;
+import com.example.roomreservation.exception.LoginException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,5 +28,9 @@ public class UserService {
 
     public void deleteHotel(Integer userId) {
         userRepository.deleteById(userId);
+    }
+
+    public User findUserByEmailAndPassword(Login login) throws LoginException {
+       return userRepository.findByEmailAndPasword(login.getEmail(), login.getPassword()).orElseThrow(() -> new LoginException("Email or password is incorrect"));
     }
 }

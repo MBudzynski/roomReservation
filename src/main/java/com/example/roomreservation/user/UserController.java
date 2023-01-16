@@ -1,6 +1,7 @@
 package com.example.roomreservation.user;
 
 import com.example.roomreservation.exception.EmailException;
+import com.example.roomreservation.exception.LoginException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,14 +40,13 @@ public class UserController {
             @ApiResponse(description = "Email already exists", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
     })
-    ResponseEntity createUser(@RequestBody User user, Exception anException) {
+    ResponseEntity createUser(@RequestBody User user) {
         try {
             userService.createUser(user);
             return new ResponseEntity<>("", HttpStatus.CREATED);
         } catch (EmailException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @DeleteMapping("/delete-user/{userId}")
@@ -64,15 +64,31 @@ public class UserController {
             @ApiResponse(description = "Update user success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
             @ApiResponse(description = "Email already exists", responseCode = "400",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
-    ResponseEntity<User> updateHotel(@RequestBody User user) {
+    ResponseEntity updateHotel(@RequestBody User user) {
         User response = null;
         try {
             response = userService.createUser(user);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (EmailException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/login-user")
+    @Operation(summary = "Login user", responses = {
+            @ApiResponse(description = "Login user success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+            @ApiResponse(description = "Email or password is incorrect", responseCode = "400",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
+    })
+    ResponseEntity createUser(@RequestBody Login login) {
+        try {
+            User user = userService.findUserByEmailAndPassword(login);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (LoginException e) {
+            return new ResponseEntity<>("Email or password is incorrect", HttpStatus.BAD_REQUEST);
         }
     }
 
