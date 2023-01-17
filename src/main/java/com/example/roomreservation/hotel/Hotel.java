@@ -1,5 +1,6 @@
 package com.example.roomreservation.hotel;
 import com.example.roomreservation.review.Review;
+import com.example.roomreservation.room.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,13 @@ public class Hotel {
             fetch = FetchType.LAZY,
             orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
+
+    //TODO zastanowić się czemu nie może utworzyć relacji
+//    @OneToMany(mappedBy = "hotel",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    private List<Room> rooms;
 
     public Hotel(Integer hotelId) {
         this.hotelId = hotelId;

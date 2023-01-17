@@ -4,11 +4,15 @@ import com.example.roomreservation.hotel.Hotel;
 import com.example.roomreservation.hotel.HotelRepository;
 import com.example.roomreservation.review.Review;
 import com.example.roomreservation.review.ReviewRepository;
+import com.example.roomreservation.room.Room;
+import com.example.roomreservation.room.RoomRepository;
 import com.example.roomreservation.user.User;
 import com.example.roomreservation.user.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class DataSeed implements InitializingBean {
@@ -22,12 +26,16 @@ public class DataSeed implements InitializingBean {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
         setHotelData();
         setUserData();
         setReviewData();
+        setRoomData();
     }
 
     private void setHotelData(){
@@ -48,6 +56,13 @@ public class DataSeed implements InitializingBean {
         reviewRepository.save(new Review(2, new User(2) , "Opinia Opinia Opinia 2", new Hotel(2) ,4));
         reviewRepository.save(new Review(3, new User(3) , "Opinia Opinia Opinia 3", new Hotel(3) ,3));
         reviewRepository.save(new Review(4, new User(1) , "Opinia Opinia Opinia 4", new Hotel(1) ,1));
+    }
+
+    private void setRoomData(){
+        roomRepository.save(new Room(1, "A100", new BigDecimal(300), "1 - 2", "Opis opis1", true, "A", 1, new Hotel(1)));
+        roomRepository.save(new Room(2, "A200", new BigDecimal(250), "1 - 2", "Opis opis2", true, "C", 2, new Hotel(2)));
+        roomRepository.save(new Room(3, "A300", new BigDecimal(400), "1 - 2", "Opis opis3", true, "B", 3, new Hotel(3)));
+        roomRepository.save(new Room(4, "A400", new BigDecimal(100), "1 - 2", "Opis opis4", true, "F", 4, new Hotel(1)));
     }
 
 

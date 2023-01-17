@@ -27,7 +27,7 @@ public class HotelController {
             @ApiResponse(description = "Get hotels success", responseCode = "200",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
-    ResponseEntity<List<HotelDto>> registerForm() {
+    ResponseEntity<List<HotelDto>> getAllHotels() {
         return new ResponseEntity<>(hotelService.findAllHotels(), HttpStatus.OK);
     }
 

@@ -54,7 +54,7 @@ public class UserController {
             @ApiResponse(description = "Delete user success", responseCode = "202",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
-    ResponseEntity createHotel(@PathVariable Integer userId) {
+    ResponseEntity deleteUser(@PathVariable Integer userId) {
         userService.deleteHotel(userId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
@@ -66,7 +66,7 @@ public class UserController {
             @ApiResponse(description = "Email already exists", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
-    ResponseEntity updateHotel(@RequestBody User user) {
+    ResponseEntity updateUser(@RequestBody User user) {
         UserDto response = null;
         try {
             response = userService.createUser(user);
@@ -83,7 +83,7 @@ public class UserController {
             @ApiResponse(description = "Email or password is incorrect", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
-    ResponseEntity createUser(@RequestBody Login login) {
+    ResponseEntity loginUser(@RequestBody Login login) {
         try {
             UserDto user = userService.findUserByEmailAndPassword(login);
             return new ResponseEntity<>(user, HttpStatus.OK);

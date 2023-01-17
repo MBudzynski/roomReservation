@@ -25,7 +25,7 @@ public class ReviewController {
             @ApiResponse(description = "Get hotel reviews success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDto.class)))
     })
-    ResponseEntity<List<ReviewDto>> registerForm(@PathVariable Integer hotelId) {
+    ResponseEntity<List<ReviewDto>> getAllReviews(@PathVariable Integer hotelId) {
         return new ResponseEntity<>(reviewService.findAllHotelReviews(hotelId), HttpStatus.OK);
     }
 
@@ -34,7 +34,7 @@ public class ReviewController {
             @ApiResponse(description = "Create review success", responseCode = "201",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
     })
-    ResponseEntity createUser(@RequestBody ReviewDto reviewDto) {
+    ResponseEntity createReview(@RequestBody ReviewDto reviewDto) {
             reviewService.createReview(reviewDto);
             return new ResponseEntity<>("success", HttpStatus.CREATED);
     }
@@ -44,7 +44,7 @@ public class ReviewController {
             @ApiResponse(description = "Update review success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDto.class)))
     })
-    ResponseEntity<ReviewDto> updateHotel(@RequestBody ReviewDto reviewDto) {
+    ResponseEntity<ReviewDto> updateReview(@RequestBody ReviewDto reviewDto) {
         ReviewDto response = reviewService.createReview(reviewDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class ReviewController {
             @ApiResponse(description = "Delete review success", responseCode = "202",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
-    ResponseEntity deleteHotel(@PathVariable Integer reviewId) {
+    ResponseEntity deleteReview(@PathVariable Integer reviewId) {
         reviewService.deleteHotel(reviewId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
