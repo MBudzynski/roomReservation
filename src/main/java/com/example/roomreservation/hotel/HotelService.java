@@ -3,6 +3,7 @@ package com.example.roomreservation.hotel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
@@ -13,12 +14,12 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
-    public List<Hotel> findAllHotels(){
-        return hotelRepository.findAll();
+    public List<HotelDto> findAllHotels(){
+        return hotelRepository.findAll().stream().map(Hotel::asDto).collect(Collectors.toList());
     }
 
-    public Hotel createHotel(Hotel hotel) {
-        return hotelRepository.save(hotel);
+    public HotelDto createHotel(Hotel hotel) {
+        return hotelRepository.save(hotel).asDto();
     }
 
     public void deleteHotel(Integer hotelId) {

@@ -27,7 +27,7 @@ public class HotelController {
             @ApiResponse(description = "Get hotels success", responseCode = "200",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
-    ResponseEntity<List<Hotel>> registerForm() {
+    ResponseEntity<List<HotelDto>> registerForm() {
         return new ResponseEntity<>(hotelService.findAllHotels(), HttpStatus.OK);
     }
 
@@ -46,7 +46,7 @@ public class HotelController {
             @ApiResponse(description = "Delete hotel success", responseCode = "202",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
-    ResponseEntity createHotel(@PathVariable Integer hotelId) {
+    ResponseEntity deleteHotel(@PathVariable Integer hotelId) {
         hotelService.deleteHotel(hotelId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
@@ -56,8 +56,8 @@ public class HotelController {
             @ApiResponse(description = "Update hotel success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
-    ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel) {
-        Hotel response = hotelService.createHotel(hotel);
+    ResponseEntity<HotelDto> updateHotel(@RequestBody Hotel hotel) {
+        HotelDto response = hotelService.createHotel(hotel);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

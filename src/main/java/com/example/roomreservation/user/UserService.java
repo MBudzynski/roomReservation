@@ -5,6 +5,7 @@ import com.example.roomreservation.exception.LoginException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -15,22 +16,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return  userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return  userRepository.findAll().stream().map(User::asDto).collect(Collectors.toList());
     }
 
-    public User createUser(User user) throws EmailException{
+    public UserDto createUser(User user) throws EmailException{
         if(userRepository.existsByEmail(user.getEmail())){
           throw new EmailException("Address email already exist");
         }
-        return userRepository.save(user);
+        return userRepository.save(user).asDto();
     }
 
     public void deleteHotel(Integer userId) {
         userRepository.deleteById(userId);
     }
 
-    public User findUserByEmailAndPassword(Login login) throws LoginException {
-       return userRepository.findByEmailAndPasword(login.getEmail(), login.getPassword()).orElseThrow(() -> new LoginException("Email or password is incorrect"));
+    public UserDto findUserByEmailAndPassword(Login login) throws LoginException {
+       return userRepository.findByEmailAndPasword(login.getEmail(), login.getPassword()).orElseThrow(() -> new LoginException("Email or password is incorrect")).asDto();
     }
 }

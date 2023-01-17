@@ -27,18 +27,18 @@ public class UserController {
     @GetMapping("/get-users")
     @Operation(summary = "Get all users", responses = {
             @ApiResponse(description = "Get all users success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class)))
     })
-    ResponseEntity<List<User>> findAllUsers() {
+    ResponseEntity<List<UserDto>> findAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/create-user")
     @Operation(summary = "Create user", responses = {
             @ApiResponse(description = "Create user success", responseCode = "201",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(description = "Email already exists", responseCode = "400",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
     ResponseEntity createUser(@RequestBody User user) {
         try {
@@ -62,12 +62,12 @@ public class UserController {
     @PatchMapping ("/update-user")
     @Operation(summary = "Update user", responses = {
             @ApiResponse(description = "Update user success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(description = "Email already exists", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
     ResponseEntity updateHotel(@RequestBody User user) {
-        User response = null;
+        UserDto response = null;
         try {
             response = userService.createUser(user);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -79,13 +79,13 @@ public class UserController {
     @PostMapping("/login-user")
     @Operation(summary = "Login user", responses = {
             @ApiResponse(description = "Login user success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(description = "Email or password is incorrect", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
     ResponseEntity createUser(@RequestBody Login login) {
         try {
-            User user = userService.findUserByEmailAndPassword(login);
+            UserDto user = userService.findUserByEmailAndPassword(login);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (LoginException e) {
             return new ResponseEntity<>("Email or password is incorrect", HttpStatus.BAD_REQUEST);
