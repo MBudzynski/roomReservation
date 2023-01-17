@@ -27,12 +27,16 @@ public class Room {
     private Integer floor;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    private Hotel hotelId;
+    private Hotel hotel;
+
+    public Room(Integer roomId) {
+        this.roomId = roomId;
+    }
 
     public RoomDto asDto(){
         return RoomDto.builder()
                 .roomId(roomId)
-                .hotelId(hotelId.getHotelId())
+                .hotelId(hotel.getHotelId())
                 .roomNumber(roomNumber)
                 .price(price)
                 .numberPerson(numberPerson)

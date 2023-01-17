@@ -1,5 +1,7 @@
 package com.example.roomreservation.config;
 
+import com.example.roomreservation.booking.Booking;
+import com.example.roomreservation.booking.BookingRepository;
 import com.example.roomreservation.hotel.Hotel;
 import com.example.roomreservation.hotel.HotelRepository;
 import com.example.roomreservation.review.Review;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class DataSeed implements InitializingBean {
@@ -29,6 +33,9 @@ public class DataSeed implements InitializingBean {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -36,12 +43,13 @@ public class DataSeed implements InitializingBean {
         setUserData();
         setReviewData();
         setRoomData();
+        setBookingData();
     }
 
     private void setHotelData(){
-        hotelRepository.save(new Hotel(null,"Hotel Agat", "Spadochroniarzy", "15", "Lublin", "20-044", "698754448", "Super hotel dla studenta", 3, null));
-        hotelRepository.save(new Hotel(null,"Hotel Szafir", "Partyzantów", "187", "Zamość", "22-400", "697885554", "Hotel blisko centrum otwarty dla zwiedzających", 4, null));
-        hotelRepository.save(new Hotel(null,"Hotel Koral", "Magnoliowa", "48A", "Kraków", "31-069", "895748854", "Super ekskluzywny hotel", 5, null));
+        hotelRepository.save(new Hotel(null,"Hotel Agat", "Spadochroniarzy", "15", "Lublin", "20-044", "698754448", "Super hotel dla studenta", 3, null, null));
+        hotelRepository.save(new Hotel(null,"Hotel Szafir", "Partyzantów", "187", "Zamość", "22-400", "697885554", "Hotel blisko centrum otwarty dla zwiedzających", 4, null, null));
+        hotelRepository.save(new Hotel(null,"Hotel Koral", "Magnoliowa", "48A", "Kraków", "31-069", "895748854", "Super ekskluzywny hotel", 5, null,null));
     }
 
     private void setUserData(){
@@ -65,5 +73,9 @@ public class DataSeed implements InitializingBean {
         roomRepository.save(new Room(4, "A400", new BigDecimal(100), "1 - 2", "Opis opis4", true, "F", 4, new Hotel(1)));
     }
 
-
+    private void setBookingData(){
+        bookingRepository.save(new Booking(1, new User(1), LocalDate.now(), LocalDate.now().plusDays(3),new Room(1), new Hotel(1), false, LocalDateTime.now()));
+        bookingRepository.save(new Booking(2, new User(2), LocalDate.now(), LocalDate.now().plusDays(4),new Room(2), new Hotel(2), false, LocalDateTime.now()));
+        bookingRepository.save(new Booking(3, new User(3), LocalDate.now(), LocalDate.now().plusDays(5),new Room(3), new Hotel(3), false, LocalDateTime.now()));
+    }
 }
