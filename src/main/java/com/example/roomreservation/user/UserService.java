@@ -2,6 +2,7 @@ package com.example.roomreservation.user;
 
 import com.example.roomreservation.exception.EmailException;
 import com.example.roomreservation.exception.LoginException;
+import com.example.roomreservation.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class UserService {
 
     public UserDto findUserByEmailAndPassword(Login login) throws LoginException {
        return userRepository.findByEmailAndPasword(login.getEmail(), login.getPassword()).orElseThrow(() -> new LoginException("Email or password is incorrect")).asDto();
+    }
+
+    public UserDto findUserById(Integer userId) throws NotFoundException {
+       return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found")).asDto();
     }
 }

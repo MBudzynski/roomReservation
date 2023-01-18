@@ -2,6 +2,7 @@ package com.example.roomreservation.user;
 
 import com.example.roomreservation.exception.EmailException;
 import com.example.roomreservation.exception.LoginException;
+import com.example.roomreservation.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,6 +32,22 @@ public class UserController {
     })
     ResponseEntity<List<UserDto>> findAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user/{userId}")
+    @Operation(summary = "Get user by id", responses = {
+            @ApiResponse(description = "Get user success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
+            @ApiResponse(description = "User not found", responseCode = "400",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
+    })
+    ResponseEntity findUserById(@PathVariable Integer userId) {
+        try {
+            return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
+        } catch (NotFoundException e){
+            return new ResponseEntity<>("User not found", HttpStatus.OK);
+        }
+
     }
 
     @PostMapping("/create-user")
