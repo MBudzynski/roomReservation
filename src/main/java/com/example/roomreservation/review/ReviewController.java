@@ -14,6 +14,7 @@ import java.util.List;
 @Tag(name = "Opinie")
 @RestController
 @RequestMapping("/api/review/")
+@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class ReviewController {
 
     private ReviewService reviewService;

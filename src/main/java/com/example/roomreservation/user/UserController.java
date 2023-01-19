@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @Tag(name = "Użytkownik")
 @RequestMapping("/api/user/")
+@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class UserController {
 
     private UserService userService;
@@ -45,7 +46,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
         } catch (NotFoundException e){
-            return new ResponseEntity<>("User not found", HttpStatus.OK);
+            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
 
     }

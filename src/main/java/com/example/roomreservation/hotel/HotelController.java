@@ -1,5 +1,6 @@
 package com.example.roomreservation.hotel;
 
+import com.example.roomreservation.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/hotel/")
 @Tag(name = "Hotel")
+@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class HotelController {
 
     private HotelService hotelService;
@@ -44,11 +46,19 @@ public class HotelController {
     @DeleteMapping("/delete-hotel/{hotelId}")
     @Operation(summary = "Delete hotel", responses = {
             @ApiResponse(description = "Delete hotel success", responseCode = "202",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class))),
+            @ApiResponse(description = "Hotel not exist", responseCode = "400",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
     ResponseEntity deleteHotel(@PathVariable Integer hotelId) {
-        hotelService.deleteHotel(hotelId);
-        return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        try{
+            hotelService.deleteHotel(hotelId);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        } catch (NotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
     @PatchMapping ("/update-hotel")
