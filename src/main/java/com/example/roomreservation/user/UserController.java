@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @Tag(name = "Użytkownik")
 @RequestMapping("/api/user/")
-@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class UserController {
 
     private UserService userService;

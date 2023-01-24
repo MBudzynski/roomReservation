@@ -16,7 +16,6 @@ import java.util.List;
 @Tag(name = "Rezerwacje")
 @RestController
 @RequestMapping("/api/booking/")
-@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class BookingController {
 
     private BookingService bookingService;

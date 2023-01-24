@@ -35,7 +35,7 @@ public class HotelController {
     @GetMapping("/get-hotel/{hotelId}")
     @Operation(summary = "Get hotel", responses = {
             @ApiResponse(description = "Get hotel success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDataDto.class))),
             @ApiResponse(description = "Hotel not exist", responseCode = "400",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
