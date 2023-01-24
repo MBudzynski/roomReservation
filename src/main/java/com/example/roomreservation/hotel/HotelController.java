@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/hotel/")
 @Tag(name = "Hotel")
-@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class HotelController {
 
     private HotelService hotelService;
@@ -27,10 +26,25 @@ public class HotelController {
     @GetMapping("/get-hotels")
     @Operation(summary = "Get all hotels", responses = {
             @ApiResponse(description = "Get hotels success", responseCode = "200",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
     })
     ResponseEntity<List<HotelDto>> getAllHotels() {
         return new ResponseEntity<>(hotelService.findAllHotels(), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-hotel/{hotelId}")
+    @Operation(summary = "Get hotel", responses = {
+            @ApiResponse(description = "Get hotel success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class))),
+            @ApiResponse(description = "Hotel not exist", responseCode = "400",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
+    })
+    ResponseEntity getHotel(@PathVariable Integer hotelId) {
+        try {
+            return new ResponseEntity<>(hotelService.findHotel(hotelId), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/create-hotel")
@@ -51,17 +65,17 @@ public class HotelController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
     })
     ResponseEntity deleteHotel(@PathVariable Integer hotelId) {
-        try{
+        try {
             hotelService.deleteHotel(hotelId);
             return new ResponseEntity<>("", HttpStatus.ACCEPTED);
-        } catch (NotFoundException e){
+        } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
 
     }
 
-    @PatchMapping ("/update-hotel")
+    @PatchMapping("/update-hotel")
     @Operation(summary = "Update hotel", responses = {
             @ApiResponse(description = "Update hotel success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))

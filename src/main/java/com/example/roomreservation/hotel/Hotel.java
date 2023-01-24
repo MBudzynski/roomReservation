@@ -58,4 +58,18 @@ public class Hotel {
                .standard(standard)
                .build();
     }
+
+    public HotelDataDto asHotelDataDto(){
+        return new HotelDataDto.HotelDataDtoBuilder()
+                .hotelId(hotelId)
+                .name(name)
+                .street(street)
+                .houseNumber(houseNumber)
+                .city(city)
+                .postCode(postCode)
+                .phoneNumber(phoneNumber)
+                .description(description)
+                .standard(standard)
+                .build();
+    }
 }

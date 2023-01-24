@@ -1,7 +1,11 @@
 package com.example.roomreservation.hotel;
 
 import com.example.roomreservation.exception.NotFoundException;
+import com.example.roomreservation.review.Review;
+import com.example.roomreservation.review.ReviewDto;
 import com.example.roomreservation.review.ReviewRepository;
+import com.example.roomreservation.room.Room;
+import com.example.roomreservation.room.RoomDto;
 import com.example.roomreservation.room.RoomRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +20,10 @@ public class HotelService {
     private ReviewRepository reviewRepository;
     private RoomRepository roomRepository;
 
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, ReviewRepository reviewRepository, RoomRepository roomRepository) {
         this.hotelRepository = hotelRepository;
+        this.reviewRepository = reviewRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<HotelDto> findAllHotels(){
@@ -47,4 +53,17 @@ public class HotelService {
         }
     }
 
+    public HotelDataDto findHotel(Integer hotelId) throws NotFoundException {
+        Optional<Hotel> hotel = hotelRepository.findById(hotelId);
+        if(hotel.isPresent()){
+            List<RoomDto> rooms = roomRepository.findAllHotelReview(hotelId).stream().map(Room::asDto).collect(Collectors.toList());
+            List<ReviewDto> reviews = reviewRepository.findAllHotelReview(hotelId).stream().map(Review::asDto).collect(Collectors.toList());
+            HotelDataDto hotelDataDto = hotel.get().asHotelDataDto();
+            hotelDataDto.setReviews(reviews);
+            hotelDataDto.setRooms(rooms);
+            return hotelDataDto;
+        } else {
+            throw new NotFoundException("Hotel not exist");
+        }
+    }
 }
