@@ -1,7 +1,5 @@
 package com.example.roomreservation.booking;
 
-import com.example.roomreservation.review.ReviewDto;
-import com.example.roomreservation.room.RoomDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +14,7 @@ import java.util.List;
 @Tag(name = "Rezerwacje")
 @RestController
 @RequestMapping("/api/booking/")
+@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class BookingController {
 
     private BookingService bookingService;

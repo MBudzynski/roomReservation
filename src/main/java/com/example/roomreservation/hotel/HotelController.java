@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/hotel/")
 @Tag(name = "Hotel")
+@CrossOrigin(exposedHeaders = {"Access-Control-Allow-Origin","Access-Control-Allow-Credentials"})
 public class HotelController {
 
     private HotelService hotelService;
