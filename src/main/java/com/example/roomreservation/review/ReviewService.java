@@ -23,4 +23,8 @@ public class ReviewService {
     public void deleteHotel(Integer reviewId) {
         reviewRepository.deleteById(reviewId);
     }
+
+    public double getHotelRating(Integer hotelId){
+        return reviewRepository.getHotelRatingById(hotelId);
+    }
 }

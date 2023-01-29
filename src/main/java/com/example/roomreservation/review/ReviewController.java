@@ -62,6 +62,16 @@ public class ReviewController {
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/hotel-rating/{hotelId}")
+    @Operation(summary = "Get hotel rating", responses = {
+            @ApiResponse(description = "Get hotel rating success", responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Double.class))),
+    })
+    ResponseEntity createReview(@PathVariable Integer hotelId) {
+        double hotelRating = reviewService.getHotelRating(hotelId);
+        return new ResponseEntity<>(hotelRating, HttpStatus.OK);
+    }
+
 
 
 }

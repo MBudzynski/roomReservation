@@ -13,4 +13,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             , nativeQuery = true)
     List<Review> findAllHotelReview(Integer hotelId);
 
+    @Query(value = "SELECT avg(r.rating) from Review r where r.hotel_id = :hotelId", nativeQuery = true)
+    double getHotelRatingById(Integer hotelId);
+
 }
