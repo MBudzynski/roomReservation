@@ -20,7 +20,7 @@ public class ReviewService {
         return reviewRepository.save(reviewDto.asEntity()).asDto();
     }
 
-    public void deleteHotel(Integer reviewId) {
+    public void deleteReview(Integer reviewId) {
         reviewRepository.deleteById(reviewId);
     }
 

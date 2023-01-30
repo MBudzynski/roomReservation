@@ -7,6 +7,7 @@ import com.example.roomreservation.review.ReviewRepository;
 import com.example.roomreservation.room.Room;
 import com.example.roomreservation.room.RoomDto;
 import com.example.roomreservation.room.RoomRepository;
+import com.example.roomreservation.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +20,16 @@ public class HotelService {
     private HotelRepository hotelRepository;
     private ReviewRepository reviewRepository;
     private RoomRepository roomRepository;
+    private UserRepository userRepository;
 
-    public HotelService(HotelRepository hotelRepository, ReviewRepository reviewRepository, RoomRepository roomRepository) {
+    public HotelService(HotelRepository hotelRepository,
+                        ReviewRepository reviewRepository,
+                        RoomRepository roomRepository,
+                        UserRepository userRepository) {
         this.hotelRepository = hotelRepository;
         this.reviewRepository = reviewRepository;
         this.roomRepository = roomRepository;
+        this.userRepository = userRepository;
     }
 
     public List<HotelDto> findAllHotels(){
@@ -61,6 +67,9 @@ public class HotelService {
             HotelDataDto hotelDataDto = hotel.get().asHotelDataDto();
             hotelDataDto.setReviews(reviews);
             hotelDataDto.setRooms(rooms);
+            hotelDataDto.getReviews().stream().forEach(reviewDto -> {
+                reviewDto.setUser(userRepository.findById(reviewDto.getUser().getUserId()).get().asDto());
+            });
             return hotelDataDto;
         } else {
             throw new NotFoundException("Hotel not exist");

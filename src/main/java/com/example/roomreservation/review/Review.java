@@ -30,7 +30,7 @@ public class Review {
     public ReviewDto asDto(){
         return ReviewDto.builder()
                 .reviewId(reviewId)
-                .userId(user.getUserId())
+                .user(user.asDto())
                 .text(text)
                 .hotelId(hotel.getHotelId())
                 .rating(rating).build();

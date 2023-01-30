@@ -51,11 +51,11 @@ public class HotelController {
     @PostMapping("/create-hotel")
     @Operation(summary = "Create hotel", responses = {
             @ApiResponse(description = "Create hotel success", responseCode = "201",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class)))
     })
     ResponseEntity createHotel(@RequestBody Hotel hotel) {
-        hotelService.createHotel(hotel);
-        return new ResponseEntity<>("", HttpStatus.CREATED);
+        HotelDto hotelResponse = hotelService.createHotel(hotel);
+        return new ResponseEntity<>(hotelResponse, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete-hotel/{hotelId}")
@@ -79,7 +79,7 @@ public class HotelController {
     @PatchMapping("/update-hotel")
     @Operation(summary = "Update hotel", responses = {
             @ApiResponse(description = "Update hotel success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Hotel.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class)))
     })
     ResponseEntity<HotelDto> updateHotel(@RequestBody Hotel hotel) {
         HotelDto response = hotelService.createHotel(hotel);

@@ -58,7 +58,7 @@ public class ReviewController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
     ResponseEntity deleteReview(@PathVariable Integer reviewId) {
-        reviewService.deleteHotel(reviewId);
+        reviewService.deleteReview(reviewId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
 
@@ -67,7 +67,7 @@ public class ReviewController {
             @ApiResponse(description = "Get hotel rating success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Double.class))),
     })
-    ResponseEntity createReview(@PathVariable Integer hotelId) {
+    ResponseEntity getHotelRating(@PathVariable Integer hotelId) {
         double hotelRating = reviewService.getHotelRating(hotelId);
         return new ResponseEntity<>(hotelRating, HttpStatus.OK);
     }
