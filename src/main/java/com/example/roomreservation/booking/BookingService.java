@@ -14,7 +14,7 @@ public class BookingService {
 
 
     public List<BookingDto> findAllHotelBookings(Integer hotelId) {
-        return bookingRepository.findAllHotelReview(hotelId).stream().map(Booking::asDto).collect(Collectors.toList());
+        return bookingRepository.findHotelAllBookings(hotelId).stream().map(Booking::asDto).collect(Collectors.toList());
     }
 
     public BookingDto createBooking(BookingDto bookingDto) {

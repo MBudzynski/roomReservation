@@ -11,5 +11,5 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query(value = "SELECT * FROM Booking b WHERE b.hotel_id = :hotelId "
             , nativeQuery = true)
-    List<Booking> findAllHotelReview(Integer hotelId);
+    List<Booking> findHotelAllBookings(Integer hotelId);
 }
