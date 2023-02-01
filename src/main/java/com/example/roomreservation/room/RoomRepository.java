@@ -11,5 +11,5 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     @Query(value = "SELECT * FROM Room r WHERE r.hotel_id = :hotelId "
             , nativeQuery = true)
-    List<Room> findAllHotelReview(Integer hotelId);
+    List<Room> findHotelAllRooms(Integer hotelId);
 }

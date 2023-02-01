@@ -62,7 +62,7 @@ public class HotelService {
     public HotelDataDto findHotel(Integer hotelId) throws NotFoundException {
         Optional<Hotel> hotel = hotelRepository.findById(hotelId);
         if(hotel.isPresent()){
-            List<RoomDto> rooms = roomRepository.findAllHotelReview(hotelId).stream().map(Room::asDto).collect(Collectors.toList());
+            List<RoomDto> rooms = roomRepository.findHotelAllRooms(hotelId).stream().map(Room::asDto).collect(Collectors.toList());
             List<ReviewDto> reviews = reviewRepository.findAllHotelReview(hotelId).stream().map(Review::asDto).collect(Collectors.toList());
             HotelDataDto hotelDataDto = hotel.get().asHotelDataDto();
             hotelDataDto.setReviews(reviews);

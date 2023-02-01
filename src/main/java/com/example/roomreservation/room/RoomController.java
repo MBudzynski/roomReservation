@@ -30,7 +30,7 @@ public class RoomController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDto.class)))
     })
     ResponseEntity<List<RoomDto>> getRoomById(@PathVariable Integer hotelId) {
-        return new ResponseEntity<>(roomService.findAllHotelReviews(hotelId), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.findHotelAllRooms(hotelId), HttpStatus.OK);
     }
 
     @PostMapping("/create-room")

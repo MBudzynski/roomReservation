@@ -12,8 +12,8 @@ public class RoomService {
 
     private RoomRepository roomRepository;
 
-    public List<RoomDto> findAllHotelReviews(Integer hotelId) {
-        return roomRepository.findAllHotelReview(hotelId).stream().map(Room::asDto).collect(Collectors.toList());
+    public List<RoomDto> findHotelAllRooms(Integer hotelId) {
+        return roomRepository.findHotelAllRooms(hotelId).stream().map(Room::asDto).collect(Collectors.toList());
     }
 
     public RoomDto createRoom(RoomDto roomDto) {
