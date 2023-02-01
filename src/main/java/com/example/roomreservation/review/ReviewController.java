@@ -39,7 +39,7 @@ public class ReviewController {
     })
     ResponseEntity createReview(@RequestBody ReviewDto reviewDto) {
             reviewService.createReview(reviewDto);
-            return new ResponseEntity<>("success", HttpStatus.CREATED);
+            return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 
     @PatchMapping ("/update-review")

@@ -20,7 +20,7 @@ public class RoomService {
         return roomRepository.save(roomDto.asEntity()).asDto();
     }
 
-    public void deleteHotel(Integer roomId) {
+    public void deleteRoom(Integer roomId) {
         roomRepository.deleteById(roomId);
     }
 }

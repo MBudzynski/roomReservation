@@ -73,7 +73,7 @@ public class UserController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
     ResponseEntity deleteUser(@PathVariable Integer userId) {
-        userService.deleteHotel(userId);
+        userService.deleteUser(userId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
 

@@ -28,7 +28,7 @@ public class BookingController {
             @ApiResponse(description = "Get hotel bookings success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookingDto.class)))
     })
-    ResponseEntity<List<BookingDto>> getBookings(@PathVariable Integer hotelId) {
+    ResponseEntity<List<BookingDto>> getBookingsByHotelId(@PathVariable Integer hotelId) {
         return new ResponseEntity<>(bookingService.findAllHotelBookings(hotelId), HttpStatus.OK);
     }
 
@@ -58,7 +58,7 @@ public class BookingController {
             @ApiResponse(description = "Delete booking success", responseCode = "202",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
-    ResponseEntity deleteRoom(@PathVariable Integer bookingId) {
+    ResponseEntity deleteBooking(@PathVariable Integer bookingId) {
         bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }

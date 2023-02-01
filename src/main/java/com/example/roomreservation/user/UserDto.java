@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,4 +22,15 @@ public class UserDto {
      private String email;
      private String password;
 
+     public User asEntity(){
+          return new User(userId,
+                  firstName,
+                  lastName,
+                  phoneNumber,
+                  documentNumber,
+                  accountType,
+                  email,
+                  password,
+                  new ArrayList<>());
+     }
 }

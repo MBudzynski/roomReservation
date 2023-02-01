@@ -29,7 +29,7 @@ public class RoomController {
             @ApiResponse(description = "Get hotel rooms success", responseCode = "200",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDto.class)))
     })
-    ResponseEntity<List<RoomDto>> getRooms(@PathVariable Integer hotelId) {
+    ResponseEntity<List<RoomDto>> getRoomById(@PathVariable Integer hotelId) {
         return new ResponseEntity<>(roomService.findAllHotelReviews(hotelId), HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class RoomController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Integer.class)))
     })
     ResponseEntity deleteRoom(@PathVariable Integer roomId) {
-        roomService.deleteHotel(roomId);
+        roomService.deleteRoom(roomId);
         return new ResponseEntity<>("", HttpStatus.ACCEPTED);
     }
 }

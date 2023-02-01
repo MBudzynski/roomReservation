@@ -28,7 +28,7 @@ public class UserService {
         return userRepository.save(user).asDto();
     }
 
-    public void deleteHotel(Integer userId) {
+    public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
 
