@@ -39,17 +39,17 @@ public class DataSeed implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        setHotelData();
         setUserData();
+        setHotelData();
         setReviewData();
         setRoomData();
         setBookingData();
     }
 
     private void setHotelData(){
-        hotelRepository.save(new Hotel(null,"Hotel Agat", "Spadochroniarzy", "15", "Lublin", "20-044", "698754448", "Super hotel dla studenta", 3, null, null));
-        hotelRepository.save(new Hotel(null,"Hotel Szafir", "Partyzantów", "187", "Zamość", "22-400", "697885554", "Hotel blisko centrum otwarty dla zwiedzających", 4, null, null));
-        hotelRepository.save(new Hotel(null,"Hotel Koral", "Magnoliowa", "48A", "Kraków", "31-069", "895748854", "Super ekskluzywny hotel", 5, null,null));
+        hotelRepository.save(new Hotel(null,"Hotel Agat", "Spadochroniarzy", "15", "Lublin", "20-044", "698754448", "Super hotel dla studenta", 3, null, null, 3));
+        hotelRepository.save(new Hotel(null,"Hotel Szafir", "Partyzantów", "187", "Zamość", "22-400", "697885554", "Hotel blisko centrum otwarty dla zwiedzających", 4, null, null, 3));
+        hotelRepository.save(new Hotel(null,"Hotel Koral", "Magnoliowa", "48A", "Kraków", "31-069", "895748854", "Super ekskluzywny hotel", 5, null,null, 3));
     }
 
     private void setUserData(){

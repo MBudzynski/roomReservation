@@ -2,6 +2,7 @@ package com.example.roomreservation.hotel;
 
 import com.example.roomreservation.review.Review;
 import com.example.roomreservation.room.Room;
+import com.example.roomreservation.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ public class Hotel {
             fetch = FetchType.LAZY,
             orphanRemoval = true)
     private List<Room> rooms;
+    private Integer userId;
 
     public Hotel(Integer hotelId) {
         this.hotelId = hotelId;
@@ -56,6 +58,7 @@ public class Hotel {
                .phoneNumber(phoneNumber)
                .description(description)
                .standard(standard)
+               .userId(userId)
                .build();
     }
 

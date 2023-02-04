@@ -1,5 +1,6 @@
 package com.example.roomreservation.hotel;
 
+import com.example.roomreservation.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class HotelDto {
     private String phoneNumber;
     private String description;
     private Integer standard;
+    private Integer userId;
 }
