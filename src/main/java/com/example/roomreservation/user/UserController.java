@@ -80,18 +80,11 @@ public class UserController {
     @PatchMapping ("/update-user")
     @Operation(summary = "Update user", responses = {
             @ApiResponse(description = "Update user success", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
-            @ApiResponse(description = "Email already exists", responseCode = "400",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class)))
     })
     ResponseEntity updateUser(@RequestBody User user) {
-        UserDto response = null;
-        try {
-            response = userService.createUser(user);
+            UserDto response = userService.createUserWithoutCheckEmail(user);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (EmailException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PostMapping("/login-user")

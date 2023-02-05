@@ -28,6 +28,10 @@ public class UserService {
         return userRepository.save(user).asDto();
     }
 
+    public UserDto createUserWithoutCheckEmail(User user){
+        return userRepository.save(user).asDto();
+    }
+
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
